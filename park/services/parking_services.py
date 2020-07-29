@@ -38,8 +38,11 @@ class UnparkService():
         self.slot = data['slot']
 
     def unpark_car(self):
-        carpark = CarPark.objects.get(
-            slot=self.slot, active = True)
-        carpark.active = False
-        carpark.save()
-        return {'message': 'Car unparked'}
+        try:
+            carpark = CarPark.objects.get(
+                slot=self.slot, active = True)
+            carpark.active = False
+            carpark.save()
+            return {'message': 'Car unparked'}
+        except:
+            return {'error': 'Slot Not Present'}

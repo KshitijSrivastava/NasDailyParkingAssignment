@@ -18,6 +18,8 @@ number and return both the car number and slot number for the input.
 
 # Setup
 
+Make a python virtual environment
+run `python manage.py migrate`
 run `python manage.py runserver`
 
 

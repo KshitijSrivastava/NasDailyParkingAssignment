@@ -26,6 +26,7 @@ SECRET_KEY = config('SECRET_KEY')
 #'vf8#^%88jjuwn2tf)17$)w!y$0jdl_--23bt!)1vu6#$!3rdc2'
 
 PARKING_LOT_SIZE = config('PARKING_LOT_SIZE')
+#os.environ.get('PARKING_LOT_SIZE', '')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -125,3 +126,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '1/second'
+    }
+}

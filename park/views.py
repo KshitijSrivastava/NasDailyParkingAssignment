@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.throttling import UserRateThrottle
 
 from .serializers import CarParkSerializer, UnparkCarSerializer
 from park.services.parking_services import ParkingService, UnparkService
@@ -16,6 +17,7 @@ def index(request):
 
 
 class ParkCar(APIView):
+    throttle_classes = [UserRateThrottle]
 
     def post(self, request, format=None):
         serializer = CarParkSerializer(data=request.data)
@@ -27,6 +29,7 @@ class ParkCar(APIView):
         return Response(serializer.errors, status=status.HTTP_200_OK)
 
 class UnparkCar(APIView):
+    throttle_classes = [UserRateThrottle]
 
     def post(self, request, format=None):
         serializer = UnparkCarSerializer(data=request.data)
@@ -38,6 +41,7 @@ class UnparkCar(APIView):
         return Response(serializer.errors, status=status.HTTP_200_OK)
 
 class GetCarSlotInfo(APIView):
+    throttle_classes = [UserRateThrottle]
     
     def get(self, request, format=None):
         slot = request.GET.get('slot', None)
